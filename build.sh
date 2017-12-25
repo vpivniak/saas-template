@@ -3,15 +3,15 @@
 echo "[+] Building ..."
 
 echo " | [+] Static ..."
-pushd static
+pushd static/angular
 npm i
 npm run build
 popd
 echo " | [-] Static"
 
 echo " | [+] Service ..."
-pushd service
-mvn clean install
+pushd service/java
+./build.sh
 popd
 echo " | [-] Service"
 

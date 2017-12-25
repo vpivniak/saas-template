@@ -1,4 +1,4 @@
-package com.secourse.xaas;
+package com.swecourse.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

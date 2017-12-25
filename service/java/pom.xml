@@ -2,7 +2,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.secourse.xaas</groupId>
+  <groupId>com.swecourse.service</groupId>
   <artifactId>service</artifactId>
   <packaging>jar</packaging>
   <version>17.11.0-SNAPSHOT</version>
@@ -151,7 +151,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.secourse.xaas.Main</mainClass>
+              <mainClass>com.swecourse.service.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -190,7 +190,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>com.secourse.xaas.Main</mainClass>
+          <mainClass>com.swecourse.service.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>

@@ -1,4 +1,4 @@
-package com.secourse.xaas;
+package com.swecourse.service;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -41,7 +41,7 @@ public class Main {
     logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.secourse package
-    final ResourceConfig rc = new ResourceConfig().packages("com.secourse.xaas");
+    final ResourceConfig rc = new ResourceConfig().packages("com.swecourse.service");
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI
