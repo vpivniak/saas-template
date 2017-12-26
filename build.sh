@@ -10,7 +10,7 @@ popd
 echo " | [-] Static"
 
 echo " | [+] Service ..."
-pushd service/java
+pushd services/java
 ./build.sh
 popd
 echo " | [-] Service"
