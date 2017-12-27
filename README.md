@@ -5,6 +5,10 @@
 ```
 http://<host>/application.wadl
 ```
+* health check
+```
+http://<host>/healthcheck
+```
 * get all contacts
 ```
 curl -v -X GET http://<host>/api/v1/contacts
