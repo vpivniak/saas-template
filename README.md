@@ -11,7 +11,7 @@ curl -v -X GET http://<host>/api/v1/contacts
 ```
 * get contact by id
 ```
-curl -v -X GET http://<host>/api/v1/contacts/2
+curl -v -X GET http://<host>/api/v1/contacts/1
 ```
 * create contact
 ```
