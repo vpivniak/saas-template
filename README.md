@@ -1,16 +1,23 @@
 # Software Engineering Course project template
-* Clone https://github.com/swe-course/content.git with helpers
-* Execute
-  ```
-  > ./prereq.sh docker
-  > ./prereq.sh maven
-  > ./prereq.sh nodejs
-  > ./prereq.sh jenkins
-  ```
-  * Run http://<host>:8080 and complete Jenkins installation
-  * Install SonarQube using sonarqube/README.md
-  * Install Nexus
-  * Configure Jenkins using jenkins/README.md
 
 # API
-curl -v -X POST -H "Content-Type: application/json" -d"{}" http://46.101.7.84/api/v1/contacts
+* list of all endpoint
+```
+http://<host>/application.wadl
+```
+* get all contacts
+```
+curl -v -X GET http://<host>/api/v1/contacts
+```
+* get contact by id
+```
+curl -v -X GET http://<host>/api/v1/contacts/2
+```
+* create contact
+```
+curl -v -X POST -H "Content-Type: application/json" -d '{"email":"first_name.last_name@gmail.com","firstName":"first_name","lastName":"last_name"}' http://<host>/api/v1/contacts
+```
+* delete contact by id
+```
+curl -v -X DELETE http://46.101.7.84/api/v1/contacts/2
+```

@@ -1,5 +1,6 @@
 package com.swecourse.service.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -8,25 +9,34 @@ public class Contact {
   //
   private static final Logger logger = Logger.getLogger(Contact.class);
   //
-  private static HashMap< String, Contact> contacts = new HashMap< String, Contact>();
+  private static Integer contactNextId = 0;
+  private static HashMap<Integer, Contact> contacts = new HashMap<Integer, Contact>();
   //
   static {
-    add( new Contact("0", "John", "Doe", "john.doe@unknoen.com"));
-    logger.info(contacts);
+    add( new Contact("John", "Doe", "john.doe@unknown.com"));
   }
   /**
    *
    */
-  public Contact(final String id, final String firstName, final String secondName, final String email) {
-    this.id = id;
+  public Contact() {
+    this.id = ++contactNextId;
+  }
+  public Contact(final String firstName, final String lastName, final String email) {
+    this.id = ++contactNextId;
     this.firstName = firstName;
-    this.secondName = secondName;
+    this.lastName = lastName;
     this.email = email;
   }
   /**
    *
    */
-  public static Contact find(final String contactId) {
+  public static ArrayList<Contact> getAll() {
+    return new ArrayList<Contact>(contacts.values());
+  }
+  /**
+   *
+   */
+  public static Contact find(final Integer contactId) {
     return contacts.get(contactId);
   }
   /**
@@ -38,28 +48,37 @@ public class Contact {
   /**
    *
    */
-  public static Contact delete(final String contactId) {
+  public static Contact delete(final Integer contactId) {
     return contacts.remove(contactId);
   }
   /**
    *
    */
-  public String getId() {
+  public Integer getId() {
     return this.id;
   }
   public String getFirstName() {
     return this.firstName;
   }
-  public String getSecondName() {
-    return this.secondName;
+  public void setFirstName(final String firstName){
+    this.firstName = firstName;
+  }
+  public String getLastName() {
+    return this.lastName;
+  }
+  public void setLastName(final String lastName){
+    this.lastName = lastName;
   }
   public String getEmail() {
     return this.email;
   }
+  public void setEmail(final String email){
+    this.email = email;
+  }
 
-  private String id = "";
+  private Integer id = -1;
   private String firstName = "";
-  private String secondName = "";
+  private String lastName = "";
   private String email = "";
 }
 

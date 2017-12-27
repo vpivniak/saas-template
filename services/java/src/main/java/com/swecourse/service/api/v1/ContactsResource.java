@@ -32,6 +32,14 @@ public class ContactsResource {
 
   private static final Logger logger = Logger.getLogger(ContactsResource.class);
 
+  /**
+   */
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getAllContacts(@Context UriInfo uriInfo) {
+    logger.info(uriInfo.getRequestUri());
+    return Response.ok().entity(ApiResponse.buildList(new ArrayList<Object>(Contact.getAll()))).build();
+  }
 
   /**
    * Create contact
@@ -39,15 +47,10 @@ public class ContactsResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response updateVacanciesByCompaniesAndDate(@Context UriInfo uriInfo) {
+  public Response createContact(@Context UriInfo uriInfo, Contact contact) {
     logger.info(uriInfo.getRequestUri());
-
-    List<Object> objList = new ArrayList<>();
-    objList.add("Random String");
-    objList.add(121); //int
-    objList.add(1.22); //double
-    objList.add(false); //boolean
-    return Response.status(Response.Status.CREATED).entity(ApiResponse.build(objList)).build();
+    Contact.add(contact);
+    return Response.status(Response.Status.CREATED).entity(ApiResponse.build(contact)).build();
   }
 
   /**
@@ -55,7 +58,7 @@ public class ContactsResource {
   @GET
   @Path("/{contactId}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response getContactById(@Context UriInfo uriInfo, @PathParam("contactId") String contactId) {
+  public Response getContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
     Contact contact = Contact.find(contactId);
     if (contact != null) {
@@ -69,7 +72,7 @@ public class ContactsResource {
   @DELETE
   @Path("/{contactId}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") String contactId) {
+  public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
     Contact contact = Contact.delete(contactId);
     if (contact != null) {

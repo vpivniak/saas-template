@@ -58,7 +58,7 @@ public class ApiResponse {
   /**
    *
    */
-  public static ApiResponse build(final Status status, final String message, final List<Object> data) {
+  public static ApiResponse buildList(final Status status, final String message, final List<Object> data) {
     ApiResponse response = build(status, message);
     response.data = data;
     return response;
@@ -67,7 +67,7 @@ public class ApiResponse {
   /**
    *
    */
-  public static ApiResponse build(final List<Object> data) {
+  public static ApiResponse buildList(final List<Object> data) {
     ApiResponse response = build(Status.OK, "");
     response.data = data;
     return response;
@@ -77,7 +77,7 @@ public class ApiResponse {
    *
    */
   public static ApiResponse build(final Object data) {
-    return build(new ArrayList<Object>(){{ add(data); }} );
+    return buildList(new ArrayList<Object>(){{ add(data); }} );
   }
 }
 
