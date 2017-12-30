@@ -18,6 +18,20 @@ public class ContactInfo {
     this.lastName = lastName;
     this.email = email;
   }
+
+
+  public void patch(final ContactInfo contactInfo) {
+    if (contactInfo.firstName != null){
+      this.firstName = contactInfo.firstName;
+    }
+    if (contactInfo.lastName != null){
+      this.lastName = contactInfo.lastName;
+    }
+    if (contactInfo.email != null){
+      this.email = contactInfo.email;
+    }
+  }
+
   /**
    *
    */
@@ -40,8 +54,8 @@ public class ContactInfo {
     this.email = email;
   }
 
-  private String firstName = "";
-  private String lastName = "";
-  private String email = "";
+  private String firstName = null;
+  private String lastName = null;
+  private String email = null;
 }
 

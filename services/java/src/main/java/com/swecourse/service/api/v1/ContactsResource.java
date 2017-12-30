@@ -3,6 +3,7 @@ package com.swecourse.service.api.v1;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.reflect.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.PathSegment;
 
 import org.apache.log4j.Logger;
 
+import com.swecourse.service.Utils;
 import com.swecourse.service.ApiResponse;
 import com.swecourse.service.api.Contacts;
 import com.swecourse.service.api.ContactInfo;
@@ -78,6 +80,8 @@ public class ContactsResource {
   public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
     Contacts.Contact contact = Contacts.delete(contactId);
+    //
+    Utils.dumpObject(logger, "Delete contact", contact);
     if (contact != null) {
       return Response.ok().entity(ApiResponse.build(contact)).build();
     }
@@ -96,6 +100,24 @@ public class ContactsResource {
     if (contact != null) {
       return Response.ok().entity(ApiResponse.build(contact)).build();
     }
+    return Response.status(Response.Status.NOT_FOUND).build();
+  }
+
+  /**
+   * Update sub set of  contact parameters
+   */
+  @PATCH
+  @Path("/{contactId}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response patchContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId, ContactInfo contactInfo) {
+    logger.info(uriInfo.getRequestUri());
+    Utils.dumpObject(logger, "Patch contact", contactInfo);
+    //
+    Contacts.Contact contact = Contacts.patch(contactId, contactInfo);
+    if (contact != null) {
+      return Response.ok().entity(ApiResponse.build(contact)).build();
+    }
+    //
     return Response.status(Response.Status.NOT_FOUND).build();
   }
 

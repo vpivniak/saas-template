@@ -21,9 +21,11 @@ public class Contacts {
       this.refs.put("patch", "http://host:port/api/v1/contacts/" + this.id);
       this.refs.put("delete", "http://host:port/api/v1/contacts/" + this.id);
     }
+    //
     public Integer getId() { return this.id; }
     public ContactInfo getInfo() { return this.info; }
     public ContactInfo setInfo(final ContactInfo contactInfo) { ContactInfo info = this.info; this.info = contactInfo; return info; }
+    public ContactInfo patch(final ContactInfo contactInfo) { ContactInfo info = this.info; this.info.patch(contactInfo); return info; }
     public HashMap<String, String> getRefs() { return this.refs; }
 
 
@@ -71,6 +73,17 @@ public class Contacts {
     Contact c = contacts.get(contactId);
     if (c != null){
       c.setInfo(contactInfo);
+      contacts.put(c.getId(), c);
+    }
+    return c;
+  }
+  /**
+   *
+   */
+  public static Contact patch(final Integer contactId, final ContactInfo contactInfo) {
+    Contact c = contacts.get(contactId);
+    if (c != null){
+      c.patch(contactInfo);
       contacts.put(c.getId(), c);
     }
     return c;
