@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -68,6 +70,7 @@ public class ContactsResource {
   }
 
   /**
+   * Delete contact
    */
   @DELETE
   @Path("/{contactId}")
@@ -75,6 +78,21 @@ public class ContactsResource {
   public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
     Contacts.Contact contact = Contacts.delete(contactId);
+    if (contact != null) {
+      return Response.ok().entity(ApiResponse.build(contact)).build();
+    }
+    return Response.status(Response.Status.NOT_FOUND).build();
+  }
+
+  /**
+   * Update entire contact
+   */
+  @PUT
+  @Path("/{contactId}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId, ContactInfo contactInfo) {
+    logger.info(uriInfo.getRequestUri());
+    Contacts.Contact contact = Contacts.update(contactId, contactInfo);
     if (contact != null) {
       return Response.ok().entity(ApiResponse.build(contact)).build();
     }
