@@ -5,27 +5,42 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-public class Contact {
+import com.swecourse.service.api.ContactInfo;
+
+public class Contacts {
   //
   private static final Logger logger = Logger.getLogger(Contact.class);
+  //
+  static public class Contact {
+
+    public Contact(final Integer id, final ContactInfo info){
+      this.id = id;
+      this.info = info;
+      this.refs.put("get", "http://host:port/api/v1/contacts/" + this.id);
+      this.refs.put("put", "http://host:port/api/v1/contacts/" + this.id);
+      this.refs.put("patch", "http://host:port/api/v1/contacts/" + this.id);
+      this.refs.put("delete", "http://host:port/api/v1/contacts/" + this.id);
+    }
+    public Integer getId() { return this.id; }
+    public ContactInfo getInfo() { return this.info; }
+    public HashMap<String, String> getRefs() { return this.refs; }
+
+
+    private Integer id = -1;
+    private ContactInfo info = null;
+    private HashMap<String, String> refs = new HashMap<String, String>();
+  }
   //
   private static Integer contactNextId = 0;
   private static HashMap<Integer, Contact> contacts = new HashMap<Integer, Contact>();
   //
   static {
-    add( new Contact("John", "Doe", "john.doe@unknown.com"));
+    add( new ContactInfo("John", "Doe", "john.doe@unknown.com"));
   }
   /**
    *
    */
-  public Contact() {
-    this.id = ++contactNextId;
-  }
-  public Contact(final String firstName, final String lastName, final String email) {
-    this.id = ++contactNextId;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
+  public Contacts() {
   }
   /**
    *
@@ -42,8 +57,11 @@ public class Contact {
   /**
    *
    */
-  public static Contact add(final Contact contact) {
-    return contacts.put(contact.id, contact);
+  public static Contact add(final ContactInfo contactInfo) {
+    final Integer newId = ++contactNextId;
+    Contact c = new Contact(newId, contactInfo);
+    contacts.put(newId, c);
+    return c;
   }
   /**
    *

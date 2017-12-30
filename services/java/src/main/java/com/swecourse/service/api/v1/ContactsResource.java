@@ -22,7 +22,8 @@ import javax.ws.rs.core.PathSegment;
 import org.apache.log4j.Logger;
 
 import com.swecourse.service.ApiResponse;
-import com.swecourse.service.api.Contact;
+import com.swecourse.service.api.Contacts;
+import com.swecourse.service.api.ContactInfo;
 
 /**
  * 
@@ -38,19 +39,7 @@ public class ContactsResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response getAllContacts(@Context UriInfo uriInfo) {
     logger.info(uriInfo.getRequestUri());
-    return Response.ok().entity(ApiResponse.buildList(new ArrayList<Object>(Contact.getAll()))).build();
-  }
-
-  /**
-   * Create contact
-   */
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response createContact(@Context UriInfo uriInfo, Contact contact) {
-    logger.info(uriInfo.getRequestUri());
-    Contact.add(contact);
-    return Response.status(Response.Status.CREATED).entity(ApiResponse.build(contact)).build();
+    return Response.ok().entity(ApiResponse.buildList(new ArrayList<Object>(Contacts.getAll()))).build();
   }
 
   /**
@@ -60,11 +49,22 @@ public class ContactsResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response getContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
-    Contact contact = Contact.find(contactId);
+    Contacts.Contact contact = Contacts.find(contactId);
     if (contact != null) {
       return Response.ok().entity(ApiResponse.build(contact)).build();
     }
     return Response.status(Response.Status.NOT_FOUND).build();
+  }
+
+  /**
+   * Create contact
+   */
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response createContact(@Context UriInfo uriInfo, ContactInfo contactInfo) {
+    logger.info(uriInfo.getRequestUri());
+    return Response.status(Response.Status.CREATED).entity(ApiResponse.build(Contacts.add(contactInfo))).build();
   }
 
   /**
@@ -74,7 +74,7 @@ public class ContactsResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response deleteContactById(@Context UriInfo uriInfo, @PathParam("contactId") Integer contactId) {
     logger.info(uriInfo.getRequestUri());
-    Contact contact = Contact.delete(contactId);
+    Contacts.Contact contact = Contacts.delete(contactId);
     if (contact != null) {
       return Response.ok().entity(ApiResponse.build(contact)).build();
     }
