@@ -4,8 +4,7 @@ echo "[+] Building ..."
 
 echo " | [+] Static ..."
 pushd static/angular
-npm i
-npm run build
+./build.sh
 popd
 echo " | [-] Static"
 
