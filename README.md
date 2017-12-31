@@ -1,27 +1,13 @@
 # Software Engineering Course project template
 
-# API
-* list of all endpoint
-```
-http://<host>/application.wadl
-```
-* health check
-```
-http://<host>/healthcheck
-```
-* get all contacts
-```
-curl -v -X GET http://<host>/api/v1/contacts
-```
-* get contact by id
-```
-curl -v -X GET http://<host>/api/v1/contacts/1
-```
-* create contact
-```
-curl -v -X POST -H "Content-Type: application/json" -d '{"email":"first_name.last_name@gmail.com","firstName":"first_name","lastName":"last_name"}' http://<host>/api/v1/contacts
-```
-* delete contact by id
-```
-curl -v -X DELETE http://<host>/api/v1/contacts/3
-```
+## API endpoint
+| Description | Example |
+| --- | --- |
+| XML based API description | curl http://\<host\>:\<port\>/application.wadl |
+| Health check | curl http://\<host\>:\<port\>/healthcheck |
+| Get/Find contacts | curl http://\<host\>:\<port\>/api/v1/contacts<br/>http://\<host\>:\<port\>/api/v1/contacts?firstName=John&email=.\*unknow.com |
+| Get contact by Id | curl http://\<host\>:\<port\>/api/v1/contacts/1 |
+| Create contact | curl -v -X POST -H "Content-Type: application/json" -d '{"email":"first_name.last_name@gmail.com","firstName":"first_name","lastName":"last_name"}' http://\<host\>:\<port\>/api/v1/contacts |
+| Update contact | curl -v -X PUT -H "Content-Type: application/json" -d '{"email":"elom_musk@gmail.com","firstName":"Elon","lastName":"Musk"}' http://\<host\>:\<port\>/api/v1/contacts/2 |
+| Path contact | curl -v -X PATCH -H "Content-Type: application/json" -d '{"email":"elom.musk@gmail.com"}' http://\<host\>:\<port\>/api/v1/contacts/2 |
+| Delete contact | curl -v -X DELETE http://\<host\>:\<port\>/pi/v1/contacts/2 |
