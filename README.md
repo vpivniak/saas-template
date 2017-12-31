@@ -10,4 +10,4 @@
 | Create contact | curl -v -X POST -H "Content-Type: application/json" -d '{"email":"first_name.last_name@gmail.com","firstName":"first_name","lastName":"last_name"}' http://\<host\>:\<port\>/api/v1/contacts |
 | Update contact | curl -v -X PUT -H "Content-Type: application/json" -d '{"email":"elom_musk@gmail.com","firstName":"Elon","lastName":"Musk"}' http://\<host\>:\<port\>/api/v1/contacts/2 |
 | Patch contact | curl -v -X PATCH -H "Content-Type: application/json" -d '{"email":"elom.musk@gmail.com"}' http://\<host\>:\<port\>/api/v1/contacts/2 |
-| Delete contact | curl -v -X DELETE http://\<host\>:\<port\>/pi/v1/contacts/2 |
+| Delete contact | curl -v -X DELETE http://\<host\>:\<port\>/api/v1/contacts/2 |
