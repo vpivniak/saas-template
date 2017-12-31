@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.swecourse.service.api.ContactInfo;
+import com.swecourse.service.Utils;
 
 public class Contacts {
   //
@@ -48,8 +49,23 @@ public class Contacts {
   /**
    *
    */
-  public static ArrayList<Contact> getAll() {
-    return new ArrayList<Contact>(contacts.values());
+  public static ArrayList<Contact> getAll(final String firstName, final String lastName, final String email) {
+    //
+    ArrayList<Contact> result = new ArrayList<Contact>();
+    contacts.forEach((k,v) -> {
+      try {
+        if (v.getInfo().getFirstName().matches(firstName) && 
+            v.getInfo().getLastName().matches(lastName) && 
+            v.getInfo().getEmail().matches(email)){
+          result.add(v);
+        }
+      } catch(Exception e){
+        logger.error("Matching error", e);
+      }
+    });
+    return result;
+    //
+    //return new ArrayList<Contact>(contacts.values());
   }
   /**
    *
