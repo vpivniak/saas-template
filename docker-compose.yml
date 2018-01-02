@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  saas-network:
+
+services:
+  java:
+    build:
+      context: ./services/java
+      args:
+        - SERVICE_ARTIFACT
+        - SERVICE_HOSTNAME
+        - SERVICE_PORT
+    image: ${COMPOSE_PROJECT_NAME}-java
+    networks:
+      - saas-network
+    ports:
+      - $SERVICE_PORT:$SERVICE_PORT
