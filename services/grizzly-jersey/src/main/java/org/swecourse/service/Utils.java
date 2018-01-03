@@ -1,4 +1,4 @@
-package com.swecourse.service;
+package org.swecourse.service;
 
 import org.apache.log4j.Logger;
 import com.owlike.genson.*;

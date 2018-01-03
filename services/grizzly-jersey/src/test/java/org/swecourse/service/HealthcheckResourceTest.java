@@ -1,4 +1,4 @@
-package com.swecourse.service;
+package org.swecourse.service;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

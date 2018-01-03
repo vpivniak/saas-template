@@ -1,4 +1,4 @@
-package com.swecourse.service.api;
+package org.swecourse.service.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;

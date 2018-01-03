@@ -1,18 +1,18 @@
 version: '3'
 
 networks:
-  saas-network:
+  saas-template-network:
 
 services:
-  java:
+  grizzly-jersey:
     build:
-      context: ./services/java
+      context: ./services/grizzly-jersey
       args:
-        - SERVICE_ARTIFACT
-        - SERVICE_HOSTNAME
-        - SERVICE_PORT
-    image: ${COMPOSE_PROJECT_NAME}-java
+        - GJ_ARTIFACT
+        - GJ_HOSTNAME
+        - GJ_PORT
+    image: ${COMPOSE_PROJECT_NAME}-grizzly-jersey
     networks:
-      - saas-network
+      - saas-template-network
     ports:
-      - $SERVICE_PORT:$SERVICE_PORT
+      - $GJ_PORT:$GJ_PORT

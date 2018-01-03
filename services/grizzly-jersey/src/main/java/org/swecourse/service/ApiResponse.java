@@ -1,4 +1,4 @@
-package com.swecourse.service;
+package org.swecourse.service;
 
 import java.util.List;
 import java.util.ArrayList;
