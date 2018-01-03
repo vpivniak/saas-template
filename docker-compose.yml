@@ -16,3 +16,14 @@ services:
       - saas-template-network
     ports:
       - $GJ_PORT:$GJ_PORT
+  angular-nodejs:
+    build:
+      context: ./static/angular-nodejs
+      args:
+        - ANJS_HOSTNAME
+        - ANJS_PORT
+    image: ${COMPOSE_PROJECT_NAME}-angular-nodejs
+    networks:
+      - saas-template-network
+    ports:
+      - $ANJS_PORT:$ANJS_PORT
