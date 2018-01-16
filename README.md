@@ -1,6 +1,23 @@
 # Software Engineering Course project template
 
-## API endpoint
+## Setup dev environment
+* setup VM https://github.com/project-talan/talan-core/tree/latest
+* clone projects
+```
+  > cd ~/projects
+  > git clone https://github.com/swe-course/saas-template.git
+```
+* prepare .env file
+```
+  > cd saas-template
+  > cp .env.template .env
+* build & run
+```
+  > ./build.sh
+  > ./up.sh -d
+```
+
+## API endpoints
 | Description | Example |
 | --- | --- |
 | XML based API description | curl http://\<host\>:\<port\>/application.wadl |
