@@ -11,6 +11,7 @@
 ```
   > cd saas-template
   > cp .env.template .env
+```
 * build & run
 ```
   > ./build.sh
