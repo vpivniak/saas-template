@@ -1,6 +1,13 @@
 node {
   //
   def pullRequest = false
+  echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
+  echo "SONARQUBE_SERVER: ${SONARQUBE_SERVER}"
+  echo "SONARQUBE_SCANNER: ${SONARQUBE_SCANNER}"
+  echo "SONARQUBE_ACCESS_TOKEN: ${SONARQUBE_ACCESS_TOKEN}"
+  echo "NEXUS_REPOSITORY: ${NEXUS_REPOSITORY}"
+  echo "SERVICE_PORT: ${SERVICE_PORT}" 
+  
   /*/
   git url: "${GITHUB_REPOSITORY}"
   sh '''git submodule init'''
@@ -32,7 +39,7 @@ node {
   /*/
   stage('SonarQube analysis') {
     def scannerHome = tool "${SONARQUBE_SCANNER}";
-    withSonarQubeEnv('SonarQube') {
+    withSonarQubeEnv("${SONARQUBE_SERVER}") {
       if (pullRequest){
         //sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
       } else {
