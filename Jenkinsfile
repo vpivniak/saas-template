@@ -1,7 +1,7 @@
 node {
   //
   def pullRequest = false
-  //
+  /*/
   git url: "${GITHUB_REPOSITORY}"
   sh '''git submodule init'''
   sh '''git submodule update'''
@@ -13,7 +13,7 @@ node {
   }else{
     echo "Build default branch"
   }
-  //
+  /*/
   //def groupId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.groupId | grep -e "^[^\\[]"''').trim()
   //def artifactId = sh(returnStdout: true, script:'''pushd bundle > /dev/null && mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]" && popd > /dev/null''').trim()
   //def version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
@@ -27,11 +27,11 @@ node {
   //
   echo sh(returnStdout: true, script: 'env')
   stage('Build & Unit tests') {
-    sh './build.sh'
+    //sh './build.sh'
   }
-    //
+  /*/
   stage('SonarQube analysis') {
-    def scannerHome = tool 'SonarQube Scanner 3.0.3';
+    def scannerHome = tool "${SONARQUBE_SCANNER}";
     withSonarQubeEnv('SonarQube') {
       if (pullRequest){
         //sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
@@ -40,10 +40,11 @@ node {
       }
     }
   }
+  /*/
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
-      sh './upload.sh'
+      //sh './upload.sh'
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
