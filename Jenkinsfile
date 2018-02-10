@@ -1,6 +1,13 @@
 node {
   //
   def pullRequest = false
+  echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
+  echo "SONARQUBE_SERVER: ${SONARQUBE_SERVER}"
+  echo "SONARQUBE_SCANNER: ${SONARQUBE_SCANNER}"
+  echo "SONARQUBE_ACCESS_TOKEN: ${SONARQUBE_ACCESS_TOKEN}"
+  echo "NEXUS_REPOSITORY: ${NEXUS_REPOSITORY}"
+  echo "SERVICE_PORT: ${SERVICE_PORT}" 
+  
   /*/
   git url: "${GITHUB_REPOSITORY}"
   sh '''git submodule init'''
