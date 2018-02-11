@@ -7,7 +7,6 @@ node {
   def artifactId = ''
   def version = ''
   //
-  echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
   echo "SONARQUBE_SERVER: ${SONARQUBE_SERVER}"
   echo "SONARQUBE_SCANNER: ${SONARQUBE_SCANNER}"
   echo "SONARQUBE_ACCESS_TOKEN: ${SONARQUBE_ACCESS_TOKEN}"
