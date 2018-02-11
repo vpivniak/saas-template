@@ -11,7 +11,10 @@ node {
   echo "SONARQUBE_SCANNER: ${SONARQUBE_SCANNER}"
   echo "SONARQUBE_ACCESS_TOKEN: ${SONARQUBE_ACCESS_TOKEN}"
   echo "GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}"
-  echo "NEXUS_REPOSITORY: ${NEXUS_REPOSITORY}"
+  echo "NEXUS_HOST: ${NEXUS_HOST}"
+  echo "NEXUS_REPO: ${NEXUS_REPO}"
+  echo "NEXUS_USER: ${NEXUS_USER}"
+  echo "NEXUS_PASS: ${NEXUS_PASS}"
   echo "SERVICE_PORT: ${SERVICE_PORT}" 
   
   stage('Clone sources') {
@@ -34,22 +37,27 @@ node {
       version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
     }
     //
-    repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $1}' | rev''').trim()
-    org = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $2}' | rev''').trim()
+    repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $2}' | rev''').trim()
+    org = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $3}' | rev''').trim()
     //
     echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
     echo "org: ${org} repo: ${repo}"
+    //
+    sh "envsubst < .env.template > .env"
+    sh "cat ./.env"
+    sh "envsubst < settings.xml.template > settings.xml"
+    sh "cat ./settings.xml"
   }  
   //
   stage('Build & Unit tests') {
-    sh './build.sh'
+    //sh './build.sh'
   }
   //
   stage('SonarQube analysis') {
     def scannerHome = tool "${SONARQUBE_SCANNER}"
     withSonarQubeEnv("${SONARQUBE_SERVER}") {
       if (pullRequest){
-        //sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
+        sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
       } else {
         sh "${scannerHome}/bin/sonar-scanner"
         // check SonarQube Quality Gates
@@ -80,16 +88,14 @@ node {
       }
     }
   }
-  /*/
+  //
+  //
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
-      //sh './upload.sh'
+      sh "./upload.sh ${groupId} ${artifactId} ${version} ./service/target"
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
-  /*/
-  stage('Cleanup') {
-    echo 'Cleanup'
-  }
+  //
 }
