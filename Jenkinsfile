@@ -79,7 +79,7 @@ node {
       }
     }
   }
-  /*/
+  //
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
