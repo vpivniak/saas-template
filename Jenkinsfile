@@ -28,9 +28,9 @@ node {
     }
     echo sh(returnStdout: true, script: 'env')
     //
-    dir("service"){
+    dir('service'){
       groupId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.groupId | grep -e "^[^\\[]"''').trim()
-      artifactId = sh(returnStdout: true, script:'''pushd bundle > /dev/null && mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]" && popd > /dev/null''').trim()
+      artifactId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]"''').trim()
       version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
     }
     //
