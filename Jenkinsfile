@@ -27,13 +27,13 @@ node {
       sh "git checkout ${scmVars.GIT_COMMIT}"
     }
     echo sh(returnStdout: true, script: 'env')
-    /*/
-    dir('service') {
+    //
+    dir("service"){
       groupId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.groupId | grep -e "^[^\\[]"''').trim()
       artifactId = sh(returnStdout: true, script:'''pushd bundle > /dev/null && mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]" && popd > /dev/null''').trim()
       version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
     }
-    /*/
+    //
     echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
     //
     repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $1}' | rev''').trim()
