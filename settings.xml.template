@@ -4,7 +4,7 @@
                       https://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-      <id>$NEXUS_REPOSITORY</id> 
+      <id>$NEXUS_REPO</id> 
       <username>$NEXUS_USER</username> 
       <password>$NEXUS_PASS</password> 
     </server>
