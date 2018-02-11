@@ -52,7 +52,7 @@ node {
   stage('Build & Unit tests') {
     //sh './build.sh'
   }
-  /*/
+  //
   stage('SonarQube analysis') {
     def scannerHome = tool "${SONARQUBE_SCANNER}"
     withSonarQubeEnv("${SONARQUBE_SERVER}") {
@@ -88,7 +88,7 @@ node {
       }
     }
   }
-  /*/
+  //
   //
   stage('Deploy & Publish') {
     if (pullRequest){
@@ -98,7 +98,4 @@ node {
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
   //
-  stage('Cleanup') {
-    echo 'Cleanup'
-  }
 }
