@@ -11,7 +11,10 @@ node {
   echo "SONARQUBE_SCANNER: ${SONARQUBE_SCANNER}"
   echo "SONARQUBE_ACCESS_TOKEN: ${SONARQUBE_ACCESS_TOKEN}"
   echo "GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}"
-  echo "NEXUS_REPOSITORY: ${NEXUS_REPOSITORY}"
+  echo "NEXUS_HOST: ${NEXUS_HOST}"
+  echo "NEXUS_REPO: ${NEXUS_REPO}"
+  echo "NEXUS_USER: ${NEXUS_USER}"
+  echo "NEXUS_PASS: ${NEXUS_PASS}"
   echo "SERVICE_PORT: ${SERVICE_PORT}" 
   
   stage('Clone sources') {
@@ -39,12 +42,17 @@ node {
     //
     echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
     echo "org: ${org} repo: ${repo}"
+    //
+    sh "envsubst < .env.template > .env"
+    sh "cat ./.env"
+    sh "envsubst < settings.xml.template > settings.xml"
+    sh "cat ./settings.xml"
   }  
   //
   stage('Build & Unit tests') {
-    sh './build.sh'
+    //sh './build.sh'
   }
-  //
+  /*/
   stage('SonarQube analysis') {
     def scannerHome = tool "${SONARQUBE_SCANNER}"
     withSonarQubeEnv("${SONARQUBE_SERVER}") {
@@ -80,6 +88,7 @@ node {
       }
     }
   }
+  /*/
   /*/
   stage('Deploy & Publish') {
     if (pullRequest){
