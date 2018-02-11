@@ -4,8 +4,8 @@ echo "[+] Building ..."
 
 echo " | [+] Static ..."
 pushd static
-#npm i
-#npm run build
+npm i
+npm run build
 popd
 echo " | [-] Static"
 
