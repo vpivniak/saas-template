@@ -13,7 +13,7 @@ echo "Upload artifact ${ARTIFACT} into Nexus snapshot repository"
 
 mvn --settings ./settings.xml deploy:deploy-file \
   -DrepositoryId=${NEXUS_REPO} \
-  -Durl="http://${NEXUS_HOST}/repository/${NEXUS_REPO}" \
+  -Durl="${NEXUS_HOST}/repository/${NEXUS_REPO}" \
   -Dfile="${PATH_TO}/${ARTIFACT}" \
   -DgroupId="${GROUP_ID}" \
   -DartifactId="${ARTIFACT_ID}" \
