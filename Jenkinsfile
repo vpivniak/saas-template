@@ -34,23 +34,16 @@ node {
       version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
     }
     //
-    echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
-    //
     repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $1}' | rev''').trim()
     org = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $2}' | rev''').trim()
+    //
+    echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
     echo "org: ${org} repo: ${repo}"
-  } 
-  
-  
-  /*/
+  }  
   //
-  //sh '''cat ./.env'''
-  //
-  echo sh(returnStdout: true, script: 'env')
   stage('Build & Unit tests') {
-    //sh './build.sh'
+    sh './build.sh'
   }
-  /*/
   /*/
   stage('SonarQube analysis') {
     def scannerHome = tool "${SONARQUBE_SCANNER}";
