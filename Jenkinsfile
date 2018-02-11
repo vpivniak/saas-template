@@ -89,15 +89,15 @@ node {
     }
   }
   /*/
-  /*/
+  //
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
-      //sh './upload.sh'
+      sh "./upload.sh ${groupId} ${artifactId} ${version} ./service/target"
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
-  /*/
+  //
   stage('Cleanup') {
     echo 'Cleanup'
   }
