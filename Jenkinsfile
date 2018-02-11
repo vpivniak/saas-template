@@ -79,7 +79,7 @@ node {
       }
     }
   }
-  //
+  /*/
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
@@ -87,6 +87,7 @@ node {
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
+  /*/
   stage('Cleanup') {
     echo 'Cleanup'
   }
