@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  saas-template-network:
+
+services:
+  grizzly-jersey:
+    build:
+      context: ./services/grizzly-jersey
+      args:
+        - SERVICES_GJ_ARTIFACT
+        - SERVICES_GJ_HOSTNAME
+        - SERVICES_GJ_PORT
+    image: ${COMPOSE_PROJECT_NAME}-grizzly-jersey
+    networks:
+      - saas-template-network
+    ports:
+      - $SERVICES_GJ_PORT:$SERVICES_GJ_PORT
+  angular-nodejs:
+    build:
+      context: ./static/angular-nodejs
+      args:
+        - STATIC_ANJS_HOSTNAME
+        - STATIC_ANJS_PORT
+    image: ${COMPOSE_PROJECT_NAME}-angular-nodejs
+    networks:
+      - saas-template-network
+    ports:
+      - $STATIC_ANJS_PORT:$STATIC_ANJS_PORT

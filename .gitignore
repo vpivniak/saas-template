@@ -57,3 +57,4 @@ typings/
 # Project specific
 .env
 settings.xml
+**/*.log

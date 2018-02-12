@@ -4,7 +4,7 @@ export $(cat ./.env | grep -v ^# | xargs)
 
 GROUP_ID=com.secourse.xaas
 ARTIFACT_ID=service
-BUNDLE_VERSION=17.11.0-SNAPSHOT
+BUNDLE_VERSION=18.2.0-SNAPSHOT
 BUNDLE_PACKAGING="jar"
 ARTIFACT="${GROUP_ID}.${ARTIFACT_ID}-${BUNDLE_VERSION}.${BUNDLE_PACKAGING}"
 PATH_TO=./service/target

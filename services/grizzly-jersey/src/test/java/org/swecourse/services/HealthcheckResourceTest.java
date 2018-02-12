@@ -1,8 +1,10 @@
-package com.secourse.xaas;
+package org.swecourse.services;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+
+import javax.annotation.Priority;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
@@ -13,9 +15,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
 
-public class MyResourceTest {
+public class HealthcheckResourceTest {
 
-  private static final Logger logger = Logger.getLogger(MyResourceTest.class);
+  private static final Logger logger = Logger.getLogger(HealthcheckResourceTest.class);
 
   private HttpServer server;
   private WebTarget target;
@@ -47,7 +49,7 @@ public class MyResourceTest {
    */
   @Test
   public void testGetIt() {
-    String responseMsg = target.path("myresource").request().get(String.class);
-    assertEquals("Got it!", responseMsg);
+    String responseMsg = target.path("healthcheck").request().get(String.class);
+    assertEquals("live", responseMsg);
   }
 }

@@ -1,4 +1,4 @@
-package com.secourse.xaas;
+package org.swecourse.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,12 +12,12 @@ import javax.ws.rs.core.UriInfo;
 import org.apache.log4j.Logger;
 
 /**
- * Root resource (exposed at "myresource" path)
+ * 
  */
-@Path("myresource")
-public class MyResource {
+@Path("healthcheck")
+public class HealthcheckResource {
 
-  private static final Logger logger = Logger.getLogger(MyResource.class);
+  private static final Logger logger = Logger.getLogger(HealthcheckResource.class);
   /**
    * Method handling HTTP GET requests. The returned object will be sent
    * to the client as "text/plain" media type.
@@ -28,6 +28,6 @@ public class MyResource {
   @Produces(MediaType.TEXT_PLAIN)
   public String getIt(@Context UriInfo uriInfo) {
     logger.info(uriInfo.getRequestUri());
-    return "Got it!";
+    return "live";
   }
 }

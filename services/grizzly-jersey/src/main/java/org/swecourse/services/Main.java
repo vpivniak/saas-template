@@ -1,4 +1,4 @@
-package com.secourse.xaas;
+package org.swecourse.services;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.log4j.Logger;
+import com.owlike.genson.ext.jaxrs.GensonJsonConverter;
 
 /**
  * Main class.
@@ -28,8 +29,8 @@ public class Main {
 
   static {
     PROTOCOL = "http://";
-    host = Optional.ofNullable(System.getenv("SERVICE_HOSTNAME"));
-    port = Optional.ofNullable(System.getenv("SERVICE_PORT"));
+    host = Optional.ofNullable(System.getenv("SERVICES_GJ_HOSTNAME"));
+    port = Optional.ofNullable(System.getenv("SERVICES_GJ_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
   }
 
@@ -41,7 +42,8 @@ public class Main {
     logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.secourse package
-    final ResourceConfig rc = new ResourceConfig().packages("com.secourse.xaas");
+    final ResourceConfig rc = new ResourceConfig().packages("org.swecourse.services");
+    rc.register(GensonJsonConverter.class);
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI

@@ -15,7 +15,7 @@ node {
   echo "NEXUS_REPO: ${NEXUS_REPO}"
   echo "NEXUS_USER: ${NEXUS_USER}"
   echo "NEXUS_PASS: ${NEXUS_PASS}"
-  echo "SERVICE_PORT: ${SERVICE_PORT}" 
+  echo "SERVICES_GJ_PORT: ${SERVICES_GJ_PORT}" 
   
   stage('Clone sources') {
     //

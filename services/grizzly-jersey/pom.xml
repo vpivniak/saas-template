@@ -2,15 +2,16 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.secourse.xaas</groupId>
-  <artifactId>service</artifactId>
+  <groupId>org.swecourse.services</groupId>
+  <artifactId>api</artifactId>
   <packaging>jar</packaging>
-  <version>17.11.0-SNAPSHOT</version>
-  <name>service</name>
+  <version>18.2.0-SNAPSHOT</version>
+  <name>api</name>
 
   <properties>
-    <jersey.version>2.17</jersey.version>
-    <surefire.version>2.20</surefire.version>
+    <jersey.version>2.26</jersey.version>
+    <jackson.version>2.9.2</jackson.version>
+    <surefire.version>2.20.1</surefire.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -27,18 +28,28 @@
   </dependencyManagement>
 
   <dependencies>
+    <!-- [+] Jersey -->
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-grizzly2-http</artifactId>
+      <version>${jersey.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.glassfish.jersey.media</groupId>
-      <artifactId>jersey-media-moxy</artifactId>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+      <version>${jersey.version}</version>
     </dependency>
+    <!--dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>1.2</version>
+      <version>1.3.1</version>
+    </dependency-->
+    <!-- [-] Jersey -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.9</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -46,10 +57,16 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
+    <dependency>
+      <groupId>com.owlike</groupId>
+      <artifactId>genson</artifactId>
+      <version>1.4</version>
+    </dependency>
   </dependencies>
 
+
   <build>
-    <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+    <!--finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName-->
     <plugins>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -99,39 +116,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire.version}</version>
-        <dependencies>
-          <!-- dmaslenko: added this dependency to fix a problem with running of spock unit tests.
-                              See details https://stackoverflow.com/questions/2021771/surefire-is-not-picking-up-junit-4-tests-->
-          <dependency>
-            <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-junit4</artifactId>
-            <version>${surefire.version}</version>
-          </dependency>
-          <!-- dmaslenko: added this dependency to run testng unit tests. -->
-          <!--dependency>
-            <groupId>org.apache.maven.surefire</groupId>
-            <artifactId>surefire-testng</artifactId>
-            <version>${surefire.version}</version>
-          </dependency-->
-        </dependencies>
         <configuration>
           <!-- Sets the VM argument line used when unit tests are run. -->
           <argLine>${surefireArgLine}</argLine>
-          <properties>
-            <!-- dmaslenk: because I have 2 tests providers to avoid running JUnit tests
-                             within surefire-testng provider we set property junit=false. -->
-            <!--property>
-              <name>junit</name>
-              <value>false</value>
-            </property-->
-          </properties>
-          <!--suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-          </suiteXmlFiles-->
         </configuration>
       </plugin>
-
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -142,39 +131,26 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      <plugin>
+      <plugin><!-- uber jar creation -->
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <archive>
-            <manifest>
-              <mainClass>com.secourse.xaas.Main</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
-              <goal>single</goal>
+              <goal>shade</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>jar-with-dependencies</shadedClassifierName> <!-- Any name that makes sense -->
+              <transformers>
+                <!-- add Main-Class to manifest file -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>org.swecourse.services.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -190,7 +166,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>com.secourse.xaas.Main</mainClass>
+          <mainClass>org.swecourse.services.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>
