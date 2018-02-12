@@ -2,12 +2,12 @@
 
 export $(cat ./.env | grep -v ^# | xargs)
 
-GROUP_ID=com.secourse.xaas
-ARTIFACT_ID=service
-BUNDLE_VERSION=18.2.0-SNAPSHOT
+GROUP_ID=$1 #com.swecourse.services
+ARTIFACT_ID=$2 #api
+BUNDLE_VERSION=$3 #18.2.0-SNAPSHOT
 BUNDLE_PACKAGING="jar"
 ARTIFACT="${GROUP_ID}.${ARTIFACT_ID}-${BUNDLE_VERSION}.${BUNDLE_PACKAGING}"
-PATH_TO=./service/target
+PATH_TO=$4 #./services/api/target
 
 echo "Upload artifact ${ARTIFACT} into Nexus snapshot repository"
 
