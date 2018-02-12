@@ -7,7 +7,7 @@ ARTIFACT_ID=$2 #api
 BUNDLE_VERSION=$3 #18.2.0-SNAPSHOT
 BUNDLE_PACKAGING="jar"
 ARTIFACT="${GROUP_ID}.${ARTIFACT_ID}-${BUNDLE_VERSION}.${BUNDLE_PACKAGING}"
-PATH_TO=$4 #./services/api/target
+PATH_TO=$4 #./services/grizzly-jersey/target
 
 echo "Upload artifact ${ARTIFACT} into Nexus snapshot repository"
 

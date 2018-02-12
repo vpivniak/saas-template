@@ -31,7 +31,7 @@ node {
     }
     echo sh(returnStdout: true, script: 'env')
     //
-    dir('services/api'){
+    dir('services/grizzly-jersey'){
       groupId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.groupId | grep -e "^[^\\[]"''').trim()
       artifactId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]"''').trim()
       version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
@@ -93,7 +93,7 @@ node {
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
-      sh "./upload.sh ${groupId} ${artifactId} ${version} ./service/target"
+      sh "./upload.sh ${groupId} ${artifactId} ${version} ./services/grizzly-jersey/target"
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
