@@ -93,7 +93,7 @@ node {
   stage('Deploy & Publish') {
     if (pullRequest){
     } else {
-      sh "./upload.sh ${groupId} ${artifactId} ${version} ./services/grizzly-jersey/target"
+      sh "./upload.sh '' ${artifactId} ${version} ./services/grizzly-jersey/target"
     }
     //archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
   }
