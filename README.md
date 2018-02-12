@@ -1,7 +1,7 @@
 # Software Engineering Course project template
 
 ## Setup dev environment
-* setup VM https://github.com/project-talan/talan-core/tree/latest
+* setup Talan project https://github.com/project-talan/talan-core/tree/latest
 * clone projects
 ```
   > cd ~/projects
@@ -11,6 +11,7 @@
 ```
   > cd saas-template
   > cp .env.template .env
+  > cp setings.xml.template setings.xml
 ```
 * build & run
 ```

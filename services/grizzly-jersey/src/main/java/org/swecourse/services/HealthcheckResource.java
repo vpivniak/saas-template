@@ -1,4 +1,4 @@
-package org.swecourse.service;
+package org.swecourse.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -1,12 +1,12 @@
-package org.swecourse.service.api;
+package org.swecourse.services.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import org.swecourse.service.api.ContactInfo;
-import org.swecourse.service.Utils;
+import org.swecourse.services.api.ContactInfo;
+import org.swecourse.services.Utils;
 
 public class Contacts {
   //

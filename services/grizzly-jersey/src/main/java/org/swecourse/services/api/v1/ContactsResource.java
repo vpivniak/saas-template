@@ -1,4 +1,4 @@
-package org.swecourse.service.api.v1;
+package org.swecourse.services.api.v1;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,10 +26,10 @@ import javax.ws.rs.core.PathSegment;
 
 import org.apache.log4j.Logger;
 
-import org.swecourse.service.Utils;
-import org.swecourse.service.ApiResponse;
-import org.swecourse.service.api.Contacts;
-import org.swecourse.service.api.ContactInfo;
+import org.swecourse.services.Utils;
+import org.swecourse.services.ApiResponse;
+import org.swecourse.services.api.Contacts;
+import org.swecourse.services.api.ContactInfo;
 
 /**
  * 

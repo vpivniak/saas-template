@@ -1,8 +1,10 @@
-package org.swecourse.service;
+package org.swecourse.services;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+
+import javax.annotation.Priority;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
