@@ -27,13 +27,14 @@ public class Main {
   private static final Optional < String > host;
   private static final Optional < String > port;
 
-  public static Integer i = new Integer()
+  public static Integer i = new Integer
   
   static {
     PROTOCOL = "http://";
     host = Optional.ofNullable(System.getenv("SERVICES_GJ_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("SERVICES_GJ_PORT"));
     BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
+    i = 5;
   }
 
   /**
